@@ -14,11 +14,11 @@ export function showGlobalNotification(message, type = 'success') {
   if (!notification || !textElem) return;
 
   textElem.textContent = message;
-  notification.className = `global-notification ${type}`; // додає класи success/error
+  notification.className = `global-notification ${type}`;
   notification.classList.remove('is-hidden');
 
   if (timeoutId) clearTimeout(timeoutId);
-  timeoutId = setTimeout(hideGlobalNotification, 5000); // зникає через 5 сек
+  timeoutId = setTimeout(hideGlobalNotification, 5000);
 }
 
 export function hideGlobalNotification() {

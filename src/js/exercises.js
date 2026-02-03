@@ -254,10 +254,8 @@ export function switchToFavorites() {
     return;
   }
 
-  // Обов'язково додаємо клас для правильної сітки вправ
   cardsContainer.classList.add('is-exercise-view');
   
-  // Фільтруємо на випадок, якщо в масив потрапили ID замість об'єктів
   const validData = favoriteData.filter(item => typeof item === 'object' && item.rating !== undefined);
   
   cardsContainer.innerHTML = validData.map(item => createExerciseCard(item)).join('');

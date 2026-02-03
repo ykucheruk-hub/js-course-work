@@ -1,5 +1,5 @@
 import { showGlobalNotification } from './global-notification.js';
-import { validateEmail, showFieldError, hideFieldError } from './form-validation.js';
+import { validateEmail, showFieldError } from './form-validation.js';
 
 let currentExerciseId = null;
 let userRating = 0;
@@ -8,7 +8,6 @@ export function initRatingModal() {
   const form = document.getElementById('js-rating-modal-form');
   const stars = document.querySelectorAll('.rating-modal__star');
 
-  // Обробка вибору зірок
   stars.forEach((star, index) => {
     star.addEventListener('click', () => {
       userRating = index + 1;
@@ -17,7 +16,6 @@ export function initRatingModal() {
     });
   });
 
-  // Обробка сабміту форми
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('js-rating-modal-email');

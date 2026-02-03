@@ -17,7 +17,6 @@ async function getQuote() {
   const cached = JSON.parse(localStorage.getItem(QUOTE_KEY));
   const today = new Date().toDateString();
 
-  // Якщо цитата вже завантажена сьогодні — повертаємо її з кешу
   if (cached && cached.date === today) {
     return cached;
   }
@@ -31,6 +30,6 @@ async function getQuote() {
     return quoteData;
   } catch (err) {
     console.error('Error fetching quote:', err);
-    return cached; // Якщо помилка мережі, використовуємо старий кеш
+    return cached;
   }
 }
