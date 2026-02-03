@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Energy - Get Body in shape, Stay healthy</title>
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+  <link rel="icon" type="image/svg+xml" href="./images/favicon.png" />
 
-    <load src="./partials/footer.html" />
+  <link rel="stylesheet" href="./css/reset.css"> 
+  <link rel="stylesheet" href="./css/main.scss">
+</head>
 
-    <script type="module" src="./main.js"></script>
-  </body>
+<body>
+  <load src="./partials/header.html" />
+
+  <main>
+    <load src="./partials/home.html" />
+    
+    <load src="./partials/exercises.html" />
+  </main>
+
+  <load src="./partials/footer.html" />
+
+  <load src="./partials/exercise-modal.html" />
+  <load src="./partials/rating-modal.html" />
+  <load src="./partials/global-notification.html" />
+
+  <script type="module" src="./main.js"></script>
+</body>
 </html>
