@@ -1,6 +1,9 @@
 import { openExerciseModal } from './exercise-modal.js';
 import { getFavorites } from './favorites.js';
 
+import runnerIcon from '../images/svg/runner-icon-light.svg';
+import arrowIcon from '../images/svg/arrow.svg'
+
 let currentFilter = 'Muscles';
 let currentCategory = null;
 const cardsContainer = document.getElementById('js-exercises-container');
@@ -201,12 +204,12 @@ function createExerciseCard(exercise) {
         </div>
         <button class="exercise-card-start-btn" type="button">
           Start
-          <img src="./images/svg/arrow.svg" width="10" height="10">
+          <img src="${arrowIcon}" width="10" height="10">
         </button>
       </div>
 
       <div class="exercise-card-title">
-        <img src="./images/svg/runner-icon-light.svg" width='18' height='18' class="exercise-card-icon-container">
+        <img src="${runnerIcon}" width='18' height='18' class="exercise-card-icon-container">
         <h3 class="exercise-card-name">${exercise.name}</h3>
       </div>
 
