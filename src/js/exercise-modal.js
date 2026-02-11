@@ -33,7 +33,11 @@ export function initExerciseModal() {
     openRatingModal(currentExercise._id);
   });
 }
-
+const onEscKeyPress = (e) => {
+  if (e.key === 'Escape') {
+    closeExerciseModal();
+  }
+};
 export async function openExerciseModal(id) {
   const modal = document.getElementById('js-exercise-modal');
   
@@ -45,6 +49,8 @@ export async function openExerciseModal(id) {
     
     modal.classList.remove('is-hidden');
     document.body.style.overflow = 'hidden';
+
+    window.addEventListener('keydown', onEscKeyPress);
   } catch (err) {
     console.error('Error:', err);
   }
@@ -96,5 +102,7 @@ export function closeExerciseModal() {
   if (modal) {
     modal.classList.add('is-hidden');
     document.body.style.overflow = '';
+
+    window.removeEventListener('keydown', onEscKeyPress);
   }
 }

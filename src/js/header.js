@@ -28,10 +28,20 @@ export function initHeader() {
     
     const page = navBtn.dataset.page;
     updateActiveNavLink(page);
+    const homeSection = document.querySelector('.home__content');
+    const footerSection = document.querySelector('.footer');
+    const breadcrumbBase = document.querySelector('.js-breadcrumb-base');
 
     if (page === 'favorites') {
+      if (homeSection) homeSection.style.display = 'none';
+      if (footerSection) footerSection.style.display = 'none';
+      if (breadcrumbBase) breadcrumbBase.textContent = 'Favorites';
       switchToFavorites();
     } else {
+      if (homeSection) homeSection.style.display = 'block';
+      if (footerSection) footerSection.style.display = 'block';
+
+      if (breadcrumbBase) breadcrumbBase.textContent = 'Exercises';
       switchToHome();
     }
     

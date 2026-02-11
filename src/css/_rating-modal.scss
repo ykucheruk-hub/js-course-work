@@ -9,8 +9,10 @@
   justify-content: center;
   padding: 20px;
   &__close{
-    background: var(--color-white);
+    color: var(--color-white);
     border: 0 solid white;
+    background: inherit;
+    justify-self: flex-end;
   }
   &__overlay {
     position: absolute;
@@ -27,6 +29,7 @@
     width: 100%;
     max-width: 335px;
     z-index: 1;
+    display: grid;
 
     @include tablet {
       max-width: 480px;
@@ -36,10 +39,10 @@
 
   &__title {
     font-family: var(--font-family);
-    font-size: 14px;
-    color: var(--color-white);
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(244, 244, 244, 0.4);
     margin-bottom: 8px;
-    text-transform: uppercase;
   }
 
   &__rating {
@@ -50,7 +53,7 @@
   }
 
   &__rating-value {
-    font-size: 16px;
+    font-size: 12px;
     color: var(--color-white);
   }
 

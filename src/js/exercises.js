@@ -39,17 +39,6 @@ export function initSearch() {
       loadExercisesByCategory(currentCategory, 1, keyword);
     }
   });
-
-  let searchTimeout = null;
-  searchInput.addEventListener('input', () => {
-    if (searchTimeout) clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-      const keyword = searchInput.value.trim();
-      if (currentCategory) {
-        loadExercisesByCategory(currentCategory, 1, keyword);
-      }
-    }, 1000);
-  });
 }
 
 export function initCardsEventListener() {
@@ -71,6 +60,8 @@ export async function loadExerciseCards(filter, page = 1,isPageChange = false) {
   currentFilter = filter;
   currentCategory = null;
 
+  const limit = window.innerWidth < 768 ? 9 : 12;
+
   if (!isPageChange) {
     toggleSearch(false);
     updateBreadcrumbs(null);
@@ -78,7 +69,7 @@ export async function loadExerciseCards(filter, page = 1,isPageChange = false) {
     if (searchInput) searchInput.value = '';
   }
   try {
-    const response = await fetch(`https://your-energy.b.goit.study/api/filters?filter=${filter}&page=${page}&limit=12`);
+    const response = await fetch(`https://your-energy.b.goit.study/api/filters?filter=${filter}&page=${page}&limit=${limit}`);
     const data = await response.json();
     
     renderCards(data.results, 'category');
@@ -92,7 +83,7 @@ export async function loadExercisesByCategory(category, page = 1, keyword = '') 
   currentCategory = category;
   toggleSearch(true);
   updateBreadcrumbs(category);
-
+  
   const searchInput = document.getElementById('js-exercises-search-input');
   const currentKeyword = keyword || (searchInput ? searchInput.value.trim() : '');
 
@@ -100,8 +91,10 @@ export async function loadExercisesByCategory(category, page = 1, keyword = '') 
   if (currentFilter === 'Body parts') queryParam = 'bodypart';
   if (currentFilter === 'Equipment') queryParam = 'equipment';
 
+  let limit = window.innerWidth > 767 ? 10 : 8;
+
   try {
-    let url = `https://your-energy.b.goit.study/api/exercises?${queryParam}=${category.toLowerCase()}&page=${page}&limit=10`;
+    let url = `https://your-energy.b.goit.study/api/exercises?${queryParam}=${category.toLowerCase()}&page=${page}&limit=${limit}`;
     if (currentKeyword) url += `&keyword=${encodeURIComponent(currentKeyword)}`;
 
     const response = await fetch(url);
@@ -187,18 +180,18 @@ function renderCards(data, type) {
 
 function createCategoryCard({ name, filter, imgURL }) {
   return `
-    <div class="exercises__content__main__cards__cards-item" data-category-name="${name}">
+    <li class="exercises__content__main__cards__cards-item" data-category-name="${name}">
       <img src="${imgURL}" alt="${name}" loading="lazy">
       <div class="exercises__content__main__cards__cards-item-overlay">
         <h3>${name}</h3>
         <p>${filter}</p>
       </div>
-    </div>`;
+    </li>`;
 }
 
 function createExerciseCard(exercise) {
   return `
-    <div class="exercises__content__main__cards__cards-item-exercise" data-exercise-id="${exercise._id}">
+    <li><div class="exercises__content__main__cards__cards-item-exercise" data-exercise-id="${exercise._id}">
       <div class="exercise-card-top">
         <div class="exercise-card-badge">WORKOUT</div>
         <div class="exercise-card-rating">
@@ -224,16 +217,22 @@ function createExerciseCard(exercise) {
         <p><span>Body part:</span> ${exercise.bodyPart}</p>
         <p><span>Target:</span> ${exercise.target}</p>
       </div>
-    </div>`;
+    </div></li>`;
 }
 
 export function switchToHome() {
+  const exercisesSection = document.querySelector('.exercises');
+  if (exercisesSection) exercisesSection.classList.remove('is-favorites-page');
+  
   const filtersContainer = document.querySelector('.exercises__content__header-filters');
   if (filtersContainer) filtersContainer.style.display = 'flex';
   loadExerciseCards('Muscles', 1);
 }
 
 export function switchToFavorites() {
+  const exercisesSection = document.querySelector('.exercises');
+  if (exercisesSection) exercisesSection.classList.add('is-favorites-page');
+
   const cardsContainer = document.getElementById('js-exercises-container');
   const paginationContainer = document.getElementById('js-exercises-pagination');
   const filterGroup = document.querySelector('.exercises__content__header-filters');
@@ -242,14 +241,16 @@ export function switchToFavorites() {
   toggleSearch(false);
   updateBreadcrumbs(null);
 
-  const favoriteData = getFavorites();
+  cardsContainer.innerHTML = '';
 
+  const rawData = getFavorites();
+  const favoriteData = rawData.filter(item => typeof item === 'object' && item !== null && item._id);
   if (favoriteData.length === 0) {
     cardsContainer.classList.remove('is-exercise-view');
     cardsContainer.innerHTML = `
-      <div class="exercises__empty">
+      <li class="exercises__empty">
         <p>It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
-      </div>`;
+      </li>`;
     if (paginationContainer) paginationContainer.innerHTML = '';
     return;
   }

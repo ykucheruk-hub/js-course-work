@@ -42,11 +42,11 @@
     overflow-y: auto;
     
     @include tablet { 
-      max-width: 715px; 
+      max-width: 705px; 
       padding: 40px;
     }
     @include desktop {
-      max-width: 1100px;
+      max-width: 710px;
     }
   }
 
@@ -77,13 +77,13 @@
     background-color: #E8E8E8;
 
     @include tablet { 
-      width: 295px; 
-      height: 295px;
+      width: 270px; 
+      height: 260px;
       flex-shrink: 0;
     }
     @include desktop {
-      width: 460px;
-      height: 460px;
+      width: 270px;
+      height: 260px;
     }
 
     img {

@@ -39,13 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeExerciseModal();
-      closeRatingModal();
-    }
-  });
 });
 
 async function subscribeToNewsletter(email) {
