@@ -75,7 +75,6 @@ export async function loadExerciseCards(filter, page = 1,isPageChange = false) {
     renderCards(data.results, 'category');
     renderPagination(data.totalPages, page, filter, 'category');
   } catch (err) {
-    console.error('Error loading cards:', err);
   }
 }
 
@@ -103,7 +102,6 @@ export async function loadExercisesByCategory(category, page = 1, keyword = '') 
     renderCards(data.results, 'exercise');
     renderPagination(data.totalPages, page, category, 'exercise');
   } catch (err) {
-    console.error('Error loading exercises:', err);
   }
 }
 

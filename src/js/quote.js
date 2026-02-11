@@ -29,7 +29,6 @@ async function getQuote() {
     localStorage.setItem(QUOTE_KEY, JSON.stringify(quoteData));
     return quoteData;
   } catch (err) {
-    console.error('Error fetching quote:', err);
     return cached;
   }
 }

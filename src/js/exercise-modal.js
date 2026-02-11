@@ -52,7 +52,6 @@ export async function openExerciseModal(id) {
 
     window.addEventListener('keydown', onEscKeyPress);
   } catch (err) {
-    console.error('Error:', err);
   }
 }
 
